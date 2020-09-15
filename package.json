@@ -1,0 +1,9 @@
+{
+  "name": "graph-gl",
+  "version": "0.0.1",
+  "description": "Graph visualization package based on three.js",
+  "main": "index.js",
+  "repository": "https://github.com/Haicatw/graph-gl.git",
+  "author": "Kirby Zhou",
+  "license": "MIT"
+}
