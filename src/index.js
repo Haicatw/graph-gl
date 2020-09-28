@@ -1,1 +1,3 @@
-import * as THREE from 'three'
+import GraphGL from './graph-gl-core'
+
+export default GraphGL

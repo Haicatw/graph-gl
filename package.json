@@ -7,6 +7,7 @@
   "author": "Kirby Zhou",
   "license": "MIT",
   "dependencies": {
+    "cash-dom": "^8.1.0",
     "three": "^0.120.1"
   },
   "devDependencies": {
@@ -22,6 +23,7 @@
   },
   "scripts": {
     "build": "npm run lint && babel ./src -d ./lib",
-    "lint": "eslint ./src"
+    "lint": "eslint ./src",
+    "basic-test": "npm run lint && babel ./test -d ./test"
   }
 }
