@@ -1,6 +1,6 @@
 {
-  "name": "graph-gl",
-  "version": "0.0.1",
+  "name": "vidi-graph-gl",
+  "version": "0.1.0",
   "description": "Graph visualization package based on three.js",
   "main": "index.js",
   "repository": "https://github.com/Haicatw/graph-gl.git",
