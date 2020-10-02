@@ -1,4 +1,4 @@
-import defaultSettings from './default-settings'
+import { defaultSettings } from './default-settings'
 import Renderer from './renderer/graph-gl-renderer'
 
 export default class GraphGL {

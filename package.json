@@ -8,6 +8,7 @@
   "license": "MIT",
   "dependencies": {
     "cash-dom": "^8.1.0",
+    "lodash": "^4.17.20",
     "three": "^0.120.1"
   },
   "devDependencies": {
