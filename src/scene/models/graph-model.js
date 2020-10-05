@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import { defaultNodeAttrs, defaultEdgeAttrs } from './default-settings'
+import { defaultNodeAttrs, defaultEdgeAttrs } from '../../default-settings'
 
 export default class GraphModel {
   constructor () {
@@ -8,6 +8,14 @@ export default class GraphModel {
 
   get graph () {
     return this.model
+  }
+
+  get nodes () {
+    return this.model.nodes
+  }
+
+  get edges () {
+    return this.model.edges
   }
 
   clear () {
@@ -22,9 +30,9 @@ export default class GraphModel {
     if (typeof graphObject.nodes !== 'undefined') {
       throw new Error('Graph object must have valid nodes.')
     }
-    if (typeof graphObject.edges !== 'undefined') {
-      throw new Error('Graph object must have valid edges.')
-    }
+    // if (typeof graphObject.edges !== 'undefined') {
+    //   throw new Error('Graph object must have valid edges.')
+    // }
     this.model = _.cloneDeep(graphObject)
     // Nodes
     const nodeIdSet = []
@@ -66,13 +74,5 @@ export default class GraphModel {
         }
       })
     })
-  }
-
-  get nodes () {
-    return this.model.nodes
-  }
-
-  get edges () {
-    return this.model.edges
   }
 }

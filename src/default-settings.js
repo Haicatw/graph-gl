@@ -4,7 +4,14 @@ export function defaultSettings () {
     near: 10,
     far: 7000,
     height: 900,
-    width: 1600
+    width: 1600,
+    cameraPosition: {
+      x: 0,
+      y: 0,
+      z: 50
+    },
+    clearColor: '#e5e5e5',
+    debug: true
   }
 }
 
