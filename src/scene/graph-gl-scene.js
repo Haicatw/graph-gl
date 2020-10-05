@@ -29,16 +29,16 @@ export default class GLScene {
   }
 
   addGraphToScene () {
-    if (typeof this.graph.graph !== 'undefined') {
+    if (typeof this.graph.graph === 'undefined') {
       throw new Error('Graph object uninitialized.')
     }
-    if (typeof this.graph.nodes !== 'undefined') {
+    if (typeof this.graph.nodes === 'undefined') {
       throw new Error('Invalid nodes.')
     }
     _.each(this.graph.nodes, function (node) {
       node.internalObject = new Node(node)
       this.sceneObjects.nodes[node.id] = (node.instance)
-    })
+    }.bind(this))
     // _.each(this.graph.edges, function (edge) {
 
     // })

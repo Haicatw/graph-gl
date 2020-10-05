@@ -8,8 +8,8 @@ export default class Node {
     this.geometry.setAttribute('size', new THREE.BufferAttribute(node.size, 1))
     this.geometry.setAttribute('opacity', new THREE.BufferAttribute(node.opacity, 1))
     this.material = createNodeMaterial(node)
-    this.instance = (new THREE.Points(this.geometry, this.material))
+    this.pointInstance = new THREE.Points(this.geometry, this.material)
   }
 
-  get instance () { return this.instance }
+  get instance () { return this.pointInstance }
 }

@@ -24,13 +24,13 @@ export default class GraphModel {
 
   read (graphObject) {
     // Validate graph object
-    if (typeof graphObject !== 'undefined') {
+    if (typeof graphObject === 'undefined') {
       throw new Error('Invalid graph object.')
     }
-    if (typeof graphObject.nodes !== 'undefined') {
+    if (typeof graphObject.nodes === 'undefined') {
       throw new Error('Graph object must have valid nodes.')
     }
-    // if (typeof graphObject.edges !== 'undefined') {
+    // if (typeof graphObject.edges === 'undefined') {
     //   throw new Error('Graph object must have valid edges.')
     // }
     this.model = _.cloneDeep(graphObject)
@@ -41,7 +41,7 @@ export default class GraphModel {
         throw new Error('Node must have a id field.')
       }
       nodeIdSet.push(node.id)
-      if (nodeIdSet.length() !== _.uniq(nodeIdSet).length()) {
+      if (nodeIdSet.length !== _.uniq(nodeIdSet).length) {
         throw new Error('Node must have a unique id.')
       }
       const defaultNode = defaultNodeAttrs()
@@ -64,7 +64,7 @@ export default class GraphModel {
         throw new Error('Edge must have a destination field.')
       }
       edgeIdSet.push(edge.id)
-      if (edgeIdSet.length() !== _.uniq(edgeIdSet).length()) {
+      if (edgeIdSet.length !== _.uniq(edgeIdSet).length) {
         throw new Error('Edge must have a unique id.')
       }
       const defaultEdge = defaultEdgeAttrs()
