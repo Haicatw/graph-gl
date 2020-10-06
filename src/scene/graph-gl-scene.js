@@ -37,7 +37,8 @@ export default class GLScene {
     }
     _.each(this.graph.nodes, function (node) {
       node.internalObject = new Node(node)
-      this.sceneObjects.nodes[node.id] = (node.instance)
+      this.sceneObjects.nodes[node.id] = node.internalObject.instance
+      this.threeScene.add(node.internalObject.instance)
     }.bind(this))
     // _.each(this.graph.edges, function (edge) {
 

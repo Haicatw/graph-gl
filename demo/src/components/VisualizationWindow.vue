@@ -14,6 +14,7 @@ export default {
   mounted() {
     this.graphGLInstance = new GraphGL({ selector: "#vis-window" });
     this.graphGLInstance.readGraph(this.graphObject);
+    this.graphGLInstance.refresh();
   },
 };
 </script>

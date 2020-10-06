@@ -1,37 +1,25 @@
 export default function getNodeFragmentShader () {
   return `
     uniform vec3 color;
-    uniform float opacity;
+    uniform vec3 borderColor;
+    uniform float borderWidth;
     uniform float size;
-    
     void main() {
-      vec4 bkg_color = vec4(1.0, 1.0, 1.0, 0.0);
-      vec4 border_color = vec4(0,
-                               0,
-                               0,
-                               color.a);
-      vec4 center_color = vec4(color.x*1.15,
-                               color.y*1.15,
-                               color.z*1.15,
-                               color.a);
-  
-      vec2 c = 2.0 * gl_PointCoord - 1.0;
-      float r = dot(c, c);
-      float delta = fwidth(r);
-  
-      float dist_light = length(c - vec2(-0.5,-0.5));
-      vec4 sphere = mix(center_color, color, dist_light);
-  
-  
-      float borderSize = 0.6 + 0.35*sqrt((size - 5.0)/(100.0-5.0));
-      float alpha = 1.0 - smoothstep(borderSize - delta,
-                                     borderSize, r);
-      vec4 border = mix(border_color, sphere, alpha);
-  
-      alpha = 1.0 - smoothstep(1.0 - delta,
-                                     1.0, r);
-  
-      frag_color = mix(bkg_color, border, alpha);
+      gl_FragColor = vec4(color, 1.0);
+      // distance = len(x: [-1, 1], y: [-1, 1])
+      float distance = length(2.0 * gl_PointCoord - 1.0);
+      // pixels [0, ~15/20]
+      float totalWidth = size + borderWidth;
+      float edgeStart = size;
+      float edgeEnd = size + 2.0;
+      // [edgeStart, edgeEnd] -> [0, 1]
+      float sEdge = smoothstep(edgeStart, edgeEnd, distance * totalWidth);
+      // transition from borderColor to color along the edge
+      gl_FragColor = ( vec4(borderColor, 1.0) * sEdge) + ((1.0 - sEdge) * gl_FragColor);
+
+      if (distance > 1.0) {
+        discard;
+      }
     }
   `
 }

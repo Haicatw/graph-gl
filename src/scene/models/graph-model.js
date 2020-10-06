@@ -45,8 +45,9 @@ export default class GraphModel {
         throw new Error('Node must have a unique id.')
       }
       const defaultNode = defaultNodeAttrs()
-      _.each(defaultNode, function (key, value) {
+      _.each(defaultNode, function (value, key) {
         if (typeof node[key] === 'undefined') {
+          // console.log(key, value)
           node[key] = value
         }
       })
@@ -68,7 +69,7 @@ export default class GraphModel {
         throw new Error('Edge must have a unique id.')
       }
       const defaultEdge = defaultEdgeAttrs()
-      _.each(defaultEdge, function (key, value) {
+      _.each(defaultEdge, function (value, key) {
         if (typeof edge[key] === 'undefined') {
           edge[key] = value
         }

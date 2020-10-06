@@ -20,11 +20,11 @@ export function defaultNodeAttrs () {
     x: 0,
     y: 0,
     label: '',
-    size: 1,
-    color: undefined,
-    opacity: undefined,
-    boarderColor: undefined,
-    boarderWidth: undefined
+    size: 20,
+    color: '#000000',
+    opacity: 1,
+    borderColor: '#000000',
+    borderWidth: 0
   }
 }
 
@@ -33,7 +33,7 @@ export function defaultEdgeAttrs () {
     label: '',
     width: 1,
     type: 'line',
-    color: undefined,
-    opacity: undefined
+    color: '#000000',
+    opacity: 1
   }
 }
