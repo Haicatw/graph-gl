@@ -11,7 +11,7 @@ export default function createNodeMaterial ({ x, y, color, opacity, size, border
       border_color: { value: new THREE.Color(borderColor) },
       node_opacity: { value: opacity },
       node_position: { value: new THREE.Vector3(x, y, 0) },
-      node_size: { value: size },
+      node_size: { value: size / 2 },
       border_width: { value: borderWidth }
     },
     vertexShader,
