@@ -7,11 +7,12 @@ export default function createNodeMaterial ({ x, y, color, opacity, size, border
   const fragmentShader = getNodeFragmentShader()
   return new THREE.ShaderMaterial({
     uniforms: {
-      color: { type: 'vec3', value: new THREE.Color(color) },
-      borderColor: { type: 'vec3', value: new THREE.Color(borderColor) }
-      // opacity: { type: 'f', value: opacity },
-      // position: { type: 'vec3', value: new THREE.Vector3(x, y, 0) },
-      // size: { type: 'f', value: size }
+      node_color: { value: new THREE.Color(color) },
+      border_color: { value: new THREE.Color(borderColor) },
+      node_opacity: { value: opacity },
+      node_position: { value: new THREE.Vector3(x, y, 0) },
+      node_size: { value: size },
+      border_width: { value: borderWidth }
     },
     vertexShader,
     fragmentShader

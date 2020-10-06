@@ -21,10 +21,10 @@ export function defaultNodeAttrs () {
     y: 0,
     label: '',
     size: 20,
-    color: '#000000',
+    color: '#3e978b',
     opacity: 1,
-    borderColor: '#000000',
-    borderWidth: 0
+    borderColor: '#d2e603',
+    borderWidth: 10
   }
 }
 
