@@ -38,7 +38,7 @@ export default {
         id: i,
         source: this.randomInt(0, numNodes - 1),
         target: this.randomInt(0, numNodes - 1),
-        width: this.randTiny(),
+        width: this.randTiny() * 10,
         color: "#2ec1ac", //this.randColor(),
         // opacity: 0.2,
       });

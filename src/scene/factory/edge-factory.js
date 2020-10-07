@@ -24,7 +24,7 @@ export default class Edge {
     this.geometry = new MeshLine()
     this.geometry.setPoints(points)
     const resolution = new THREE.Vector2(runtimeSettings.settings.width, runtimeSettings.settings.height)
-    this.material = new MeshLineMaterial({ color: edge.color, opacity: edge.opacity, lineWidth: edge.width, resolution })
+    this.material = new MeshLineMaterial({ color: edge.color, opacity: edge.opacity, sizeAttenuation: false, lineWidth: edge.width, resolution })
     this.lineInstance = new THREE.Mesh(this.geometry, this.material)
   }
 
