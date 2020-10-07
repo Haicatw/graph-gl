@@ -3,7 +3,9 @@ import * as THREE from 'three'
 import GraphModel from './models/graph-model'
 import PolygonModels from './models/polygon-model'
 import Node from './factory/node-factory'
+import Edge from './factory/edge-factory'
 
+// TODO: Transparency bug
 export default class GLScene {
   constructor () {
     this.threeScene = new THREE.Scene()
@@ -40,8 +42,11 @@ export default class GLScene {
       this.sceneObjects.nodes[node.id] = node.internalObject.instance
       this.threeScene.add(node.internalObject.instance)
     }.bind(this))
-    // _.each(this.graph.edges, function (edge) {
-
-    // })
+    _.each(this.graph.edges, function (edge) {
+      edge.internalObject = new Edge(edge)
+      this.sceneObjects.edges[edge.id] = edge.internalObject.instance
+      this.threeScene.add(edge.internalObject.instance)
+      console.log(edge)
+    }.bind(this))
   }
 }

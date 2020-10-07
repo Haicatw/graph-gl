@@ -5,6 +5,7 @@ export default class GLRenderer {
     this.threeRenderer = new THREE.WebGLRenderer({ antialias: true })
     this.threeRenderer.setClearColor(clearColor)
     this.threeRenderer.setSize(width, height)
+    this.threeRenderer.sortObjects = false
     // this.scene = new THREE.Scene()
     // console.log(document.querySelector(selector))
     document.querySelector(selector).appendChild(this.threeRenderer.domElement)

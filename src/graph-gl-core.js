@@ -1,5 +1,6 @@
 import { defaultSettings } from './default-settings'
 import { getDimensions } from './utilities/graph-gl-utilities'
+import runtimeSettings from './runtimeSettings/runtime-settings'
 import GLRenderer from './renderer/graph-gl-renderer'
 import GLScene from './scene/graph-gl-scene'
 import GLCamera from './camera/graph-gl-camera'
@@ -22,7 +23,7 @@ export default class GraphGL {
       this.settings[property] = settings[property]
     }
     console.log(this.settings)
-
+    runtimeSettings.resetSettings(this.settings)
     // Initialize renderer
     this.renderer = new GLRenderer(this.settings)
     // Initialize Scene
@@ -42,6 +43,8 @@ export default class GraphGL {
   refresh () {
     // Update container dimensions
     const dim = getDimensions(this.settings.selector)
+    runtimeSettings.setOneSetting({ key: 'width', value: dim.width })
+    runtimeSettings.setOneSetting({ key: 'height', value: dim.height })
     this.renderer.updateRenderDim(dim.width, dim.height)
     this.camera.updateCameraDim(dim.width, dim.height)
     this.renderer.render(this.scene.scene, this.camera.camera)

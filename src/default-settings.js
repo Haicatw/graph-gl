@@ -8,7 +8,7 @@ export function defaultSettings () {
     cameraPosition: {
       x: 0,
       y: 0,
-      z: 50
+      z: 100
     },
     clearColor: '#e5e5e5',
     debug: true
@@ -24,14 +24,14 @@ export function defaultNodeAttrs () {
     color: '#3e978b',
     opacity: 1,
     borderColor: '#d2e603',
-    borderWidth: 10
+    borderWidth: 0
   }
 }
 
 export function defaultEdgeAttrs () {
   return {
     label: '',
-    width: 1,
+    width: 10,
     type: 'line',
     color: '#000000',
     opacity: 1

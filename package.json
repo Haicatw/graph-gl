@@ -10,7 +10,8 @@
     "camera-controls": "^1.25.0",
     "cash-dom": "^8.1.0",
     "lodash": "^4.17.20",
-    "three": "^0.120.1"
+    "three": "^0.120.1",
+    "three.meshline": "^1.3.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

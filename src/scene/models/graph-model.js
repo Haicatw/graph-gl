@@ -10,6 +10,7 @@ export default class GraphModel {
     return this.model
   }
 
+  // TODO: return nodeMap and edgeMap for performance optimization
   get nodes () {
     return this.model.nodes
   }
@@ -34,6 +35,8 @@ export default class GraphModel {
     //   throw new Error('Graph object must have valid edges.')
     // }
     this.model = _.cloneDeep(graphObject)
+    this.model.nodeMap = {}
+    this.model.edgeMap = {}
     // Nodes
     const nodeIdSet = []
     _.each(this.model.nodes, function (node) {
@@ -51,7 +54,8 @@ export default class GraphModel {
           node[key] = value
         }
       })
-    })
+      this.model.nodeMap[node.id] = node
+    }.bind(this))
     // Edges
     const edgeIdSet = []
     _.each(this.model.edges, function (edge) {
@@ -61,8 +65,8 @@ export default class GraphModel {
       if (edge.source === undefined) {
         throw new Error('Edge must have a source field.')
       }
-      if (edge.destination === undefined) {
-        throw new Error('Edge must have a destination field.')
+      if (edge.target === undefined) {
+        throw new Error('Edge must have a target field.')
       }
       edgeIdSet.push(edge.id)
       if (edgeIdSet.length !== _.uniq(edgeIdSet).length) {
@@ -74,6 +78,12 @@ export default class GraphModel {
           edge[key] = value
         }
       })
-    })
+      // console.log('Edge', edge)
+      edge.positions = {
+        source: { x: this.model.nodeMap[edge.source].x, y: this.model.nodeMap[edge.source].y, z: -0.1 },
+        target: { x: this.model.nodeMap[edge.target].x, y: this.model.nodeMap[edge.target].y, z: -0.1 }
+      }
+      this.model.edgeMap[edge.id] = edge
+    }.bind(this))
   }
 }
