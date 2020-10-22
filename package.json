@@ -7,7 +7,6 @@
   "author": "Kirby Zhou",
   "license": "MIT",
   "dependencies": {
-    "camera-controls": "^1.25.0",
     "cash-dom": "^8.1.0",
     "lodash": "^4.17.20",
     "three": "^0.120.1",

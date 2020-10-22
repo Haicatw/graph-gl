@@ -4,10 +4,9 @@ import runtimeSettings from './runtimeSettings/runtime-settings'
 import GLRenderer from './renderer/graph-gl-renderer'
 import GLScene from './scene/graph-gl-scene'
 import GLCamera from './camera/graph-gl-camera'
-import * as THREE from 'three'
-import CameraControls from 'camera-controls'
+import GLControl from './control/graph-gl-control'
+// import * as THREE from 'three'
 
-CameraControls.install({ THREE: THREE })
 export default class GraphGL {
   constructor (settings) {
     // Initialize settings
@@ -30,9 +29,13 @@ export default class GraphGL {
     this.scene = new GLScene()
     // Initialize camera
     this.camera = new GLCamera(this.settings)
-    if (this.settings.debug) {
-      this.addDebugCameraControl()
-    }
+    this.control = new GLControl(this.camera.camera, this.renderer.rendererDOM)
+    this.control.update()
+    this.control.control.target.set(0, 0, 0)
+    this.control.control.addEventListener('change', this.render.bind(this))
+    // if (this.settings.debug) {
+    //   this.addDebugCameraControl()
+    // }
     this.refresh()
   }
 
@@ -50,8 +53,15 @@ export default class GraphGL {
     this.renderer.render(this.scene.scene, this.camera.camera)
   }
 
-  addDebugCameraControl () {
-    this.controls = new CameraControls(this.camera.camera, this.renderer.domElement)
-    this.controls.addEventListener('change', () => this.renderer.render(this.scene.scene, this.camera.camera))
+  // addDebugCameraControl () {
+  //   this.controls = new CameraControls(this.camera.camera, this.renderer.domElement)
+  //   this.controls.addEventListener('change', () => {
+  //     this.controls.update()
+  //     this.renderer.render(this.scene.scene, this.camera.camera)
+  //   })
+  // }
+  render () {
+    // this.control.update()
+    this.renderer.render(this.scene.scene, this.camera.camera)
   }
 }

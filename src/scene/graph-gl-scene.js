@@ -43,6 +43,9 @@ export default class GLScene {
       this.threeScene.add(node.internalObject.instance)
     }.bind(this))
     _.each(this.graph.edges, function (edge) {
+      if (!edge.positions) {
+        throw new Error('Edge must provide points positions')
+      }
       edge.internalObject = new Edge(edge)
       this.sceneObjects.edges[edge.id] = edge.internalObject.instance
       this.threeScene.add(edge.internalObject.instance)

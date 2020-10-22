@@ -34,6 +34,7 @@ export function defaultEdgeAttrs () {
     width: 10,
     type: 'line',
     color: '#000000',
-    opacity: 1
+    opacity: 1,
+    curve: false
   }
 }
