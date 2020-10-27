@@ -10,9 +10,15 @@ export default class Edge {
       points.push(new THREE.Vector3(edge.positions.source.x, edge.positions.source.y, edge.positions.source.z))
       points.push(new THREE.Vector3(edge.positions.target.x, edge.positions.target.y, edge.positions.target.z))
     } else {
+      const rawPoints = []
       for (const point of edge.positions) {
-        points.push(new THREE.Vector3(point.x, point.y, point.z))
+        rawPoints.push(new THREE.Vector3(point.x, point.y, point.z))
       }
+      const curve = new THREE.CatmullRomCurve3(rawPoints, false)
+      for (const point of curve.getPoints(50)) {
+        points.push(point)
+      }
+      // points = THREE.CatmullRomCurve3(rawPoints, false)
     }
     this.geometry = new MeshLine()
     this.geometry.setPoints(points)

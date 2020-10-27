@@ -41,6 +41,9 @@ export default class GraphGL {
 
   readGraph (graphObject) {
     this.scene.readGraph(graphObject)
+    this.fitToGraph()
+    this.control.update()
+    this.refresh()
   }
 
   refresh () {
@@ -51,6 +54,25 @@ export default class GraphGL {
     this.renderer.updateRenderDim(dim.width, dim.height)
     this.camera.updateCameraDim(dim.width, dim.height)
     this.renderer.render(this.scene.scene, this.camera.camera)
+  }
+
+  fitToGraph () {
+    const centerX = (this.scene.boundingBox.xMax + this.scene.boundingBox.xMin) / 2
+    const centerY = (this.scene.boundingBox.yMax + this.scene.boundingBox.yMin) / 2
+    const bondX = Math.abs(this.scene.boundingBox.xMax - this.scene.boundingBox.xMin) + runtimeSettings.settings.viewportPadding * 2
+    const bondY = Math.abs(this.scene.boundingBox.yMax - this.scene.boundingBox.yMin) + runtimeSettings.settings.viewportPadding * 2
+    console.log(this.camera.camera.zoom)
+    const bond = bondX > bondY ? bondX : bondY
+    if (runtimeSettings.settings.width / runtimeSettings.settings.height > 1.0) {
+      // console.log(runtimeSettings.settings.height / (bond))
+      this.camera.camera.zoom = runtimeSettings.settings.height / (bond)
+    } else {
+      // console.log(runtimeSettings.settings.width / (bond))
+      this.camera.camera.zoom = runtimeSettings.settings.width / (bond)
+    }
+    console.log(this.camera.camera.zoom)
+    this.camera.camera.position.set(centerX, centerY, this.camera.camera.position.z)
+    this.camera.camera.updateProjectionMatrix()
   }
 
   // addDebugCameraControl () {

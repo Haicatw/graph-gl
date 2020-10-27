@@ -4,6 +4,7 @@ import { defaultNodeAttrs, defaultEdgeAttrs } from '../../default-settings'
 export default class GraphModel {
   constructor () {
     this.model = {}
+    this.boundingBox = { xMin: 0, yMin: 0, xMax: 0, yMax: 0 }
   }
 
   get graph () {
@@ -54,6 +55,10 @@ export default class GraphModel {
           node[key] = value
         }
       })
+      this.boundingBox.xMin = node.x < this.boundingBox.xMin ? node.x : this.boundingBox.xMin
+      this.boundingBox.yMin = node.y < this.boundingBox.yMin ? node.y : this.boundingBox.yMin
+      this.boundingBox.xMax = node.x > this.boundingBox.xMax ? node.x : this.boundingBox.xMax
+      this.boundingBox.yMax = node.y > this.boundingBox.yMax ? node.y : this.boundingBox.yMax
       this.model.nodeMap[node.id] = node
     }.bind(this))
     // Edges
@@ -79,9 +84,15 @@ export default class GraphModel {
         }
       })
       // console.log('Edge', edge)
-      edge.positions = {
-        source: { x: this.model.nodeMap[edge.source].x, y: this.model.nodeMap[edge.source].y, z: -0.1 },
-        target: { x: this.model.nodeMap[edge.target].x, y: this.model.nodeMap[edge.target].y, z: -0.1 }
+      if (!edge.curve) {
+        edge.positions = {
+          source: { x: this.model.nodeMap[edge.source].x, y: this.model.nodeMap[edge.source].y, z: -0.1 },
+          target: { x: this.model.nodeMap[edge.target].x, y: this.model.nodeMap[edge.target].y, z: -0.1 }
+        }
+      } else {
+        for (const point of edge.positions) {
+          point.z = -0.1
+        }
       }
       this.model.edgeMap[edge.id] = edge
     }.bind(this))

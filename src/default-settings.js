@@ -11,7 +11,7 @@ export function defaultSettings () {
       z: 100
     },
     clearColor: '#e5e5e5',
-    debug: true
+    viewportPadding: 10
   }
 }
 
@@ -20,6 +20,7 @@ export function defaultNodeAttrs () {
     x: 0,
     y: 0,
     label: '',
+    labelColor: 'black',
     size: 20,
     color: '#3e978b',
     opacity: 1,
@@ -31,7 +32,7 @@ export function defaultNodeAttrs () {
 export function defaultEdgeAttrs () {
   return {
     label: '',
-    width: 10,
+    width: 3,
     type: 'line',
     color: '#000000',
     opacity: 1,

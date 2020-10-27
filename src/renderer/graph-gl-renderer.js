@@ -2,7 +2,7 @@ import * as THREE from 'three'
 
 export default class GLRenderer {
   constructor ({ selector, width, height, clearColor }) {
-    this.threeRenderer = new THREE.WebGLRenderer({ antialias: true })
+    this.threeRenderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
     this.threeRenderer.setClearColor(clearColor)
     this.threeRenderer.setSize(width, height)
     this.threeRenderer.sortObjects = false
