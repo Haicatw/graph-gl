@@ -15,4 +15,8 @@ export default class PolygonModels {
     this.models = _.cloneDeep(polygonObjects)
     // TODO: Validation
   }
+
+  clear () {
+    this.models = {}
+  }
 }

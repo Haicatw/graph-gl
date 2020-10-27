@@ -6,7 +6,6 @@ import Node from './factory/node-factory'
 import Edge from './factory/edge-factory'
 import Label from './factory/label-factory'
 
-// TODO: Transparency bug
 export default class GLScene {
   constructor () {
     this.threeScene = new THREE.Scene()
@@ -16,6 +15,7 @@ export default class GLScene {
       nodes: {},
       edges: {}
     }
+    this.hasData = false
   }
 
   get scene () {
@@ -26,9 +26,27 @@ export default class GLScene {
     return this.graph.boundingBox
   }
 
+  clear () {
+    if (!this.hasData) {
+      throw new Error('No data to clear')
+    }
+    clearScene(this.threeScene)
+    this.sceneObjects = {
+      nodes: {},
+      edges: {}
+    }
+    this.graph.clear()
+    this.polygons.clear()
+    this.hasData = false
+  }
+
   readGraph (graphObject) {
+    if (this.hasData) {
+      throw new Error('Please clear current graph before read new graph.')
+    }
     this.graph.read(graphObject)
     this.addGraphToScene()
+    this.hasData = true
   }
 
   readPolygons (polygonObjects) {
@@ -59,5 +77,23 @@ export default class GLScene {
       this.threeScene.add(edge.internalObject.instance)
       // console.log(edge)
     }.bind(this))
+  }
+}
+
+// Reference: https://stackoverflow.com/questions/30359830/how-do-i-clear-three-js-scene/48722282
+function clearScene (scene) {
+  while (scene.children.length > 0) {
+    clearScene(scene.children[0])
+    scene.remove(scene.children[0])
+  }
+  if (scene.geometry) scene.geometry.dispose()
+
+  if (scene.material) {
+    // in case of map, bumpMap, normalMap, envMap ...
+    Object.keys(scene.material).forEach(prop => {
+      if (!scene.material[prop]) { return }
+      if (scene.material[prop] !== null && typeof scene.material[prop].dispose === 'function') { scene.material[prop].dispose() }
+    })
+    scene.material.dispose()
   }
 }
