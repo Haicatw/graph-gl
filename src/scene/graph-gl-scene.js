@@ -26,6 +26,14 @@ export default class GLScene {
     return this.graph.boundingBox
   }
 
+  graphNodes () {
+    return this.graph.nodes
+  }
+
+  graphEdges () {
+    return this.graph.edges
+  }
+
   clear () {
     if (!this.hasData) {
       throw new Error('No data to clear')
@@ -77,6 +85,22 @@ export default class GLScene {
       this.threeScene.add(edge.internalObject.instance)
       // console.log(edge)
     }.bind(this))
+  }
+
+  updateGraph () {
+    _.each(this.graph.nodes, function (node) {
+      // console.log(node)
+      node.internalObject.update(node)
+      node.internalObject.labelInstance.update({ ...node, offset: node.size + node.borderWidth })
+    })
+    _.each(this.graph.edges, function (edge) {
+      if (!edge.positions) {
+        throw new Error('Edge must provide points positions')
+      }
+      edge.internalObject.update(edge)
+      // TODO: edge label
+      // console.log(edge)
+    })
   }
 }
 

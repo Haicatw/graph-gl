@@ -18,7 +18,6 @@ export default class GraphGL {
     }
     this.settings = defaultSettings()
     for (const property in settings) {
-      //   console.log(`${property}: ${settings[property]}`)
       this.settings[property] = settings[property]
     }
     // console.log(this.settings)
@@ -37,6 +36,15 @@ export default class GraphGL {
     //   this.addDebugCameraControl()
     // }
     this.refresh()
+  }
+
+  nodes () {
+    // console.log('nodes core', this.scene.graphNodes())
+    return this.scene.graphNodes()
+  }
+
+  edges () {
+    return this.scene.graphEdges()
   }
 
   readGraph (graphObject) {
@@ -59,6 +67,7 @@ export default class GraphGL {
     runtimeSettings.setOneSetting({ key: 'height', value: dim.height })
     this.renderer.updateRenderDim(dim.width, dim.height)
     this.camera.updateCameraDim(dim.width, dim.height)
+    this.scene.updateGraph()
     this.renderer.render(this.scene.scene, this.camera.camera)
   }
 
