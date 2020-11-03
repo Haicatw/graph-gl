@@ -45,15 +45,15 @@ export default {
     // }
     this.graphGLInstance = new GraphGL({ selector: "#vis-window" });
     this.graphGLInstance.readGraph(this.graphObject);
-    for(const node of this.graphGLInstance.nodes()) {
-      // console.log(node)
-      node.color = '#000000'
-      node.borderWidth = 40
-      node.opacity = 0.5
-      node.borderColor = '#2ec1ac'
-      node.size = 40
-      node.label = "new label"
-    }
+    // for(const node of this.graphGLInstance.nodes()) {
+    //   // console.log(node)
+    //   node.color = '#000000'
+    //   node.borderWidth = 40
+    //   node.opacity = 0.5
+    //   node.borderColor = '#2ec1ac'
+    //   node.size = 40
+    //   node.label = "new label"
+    // }
     this.graphGLInstance.refresh();
   },
   methods: {
