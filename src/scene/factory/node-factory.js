@@ -1,5 +1,7 @@
 import * as THREE from 'three'
 import createNodeMaterial from '../../materials/node-material'
+// import createPickerMaterial from '../../materials/picker-material'
+
 export default class Node {
   constructor (node) {
     // console.log(node)
@@ -18,7 +20,10 @@ export default class Node {
     // this.geometry.attributes.border_width.setUsage(THREE.DynamicDrawUsage)
     this.geometry.setAttribute('border_color', new THREE.BufferAttribute(new Float32Array(new THREE.Color(borderColor).toArray()), 3))
     // this.geometry.attributes.border_color.setUsage(THREE.DynamicDrawUsage)
+    this.geometry.setAttribute('pointSize', new THREE.BufferAttribute(new Float32Array([size / 2 + borderWidth]), 1))
+    this.geometry.setAttribute('idcolor', new THREE.BufferAttribute(new Float32Array(new THREE.Color('#f05454').toArray()), 3))
     this.material = createNodeMaterial(node)
+    // this.material = createPickerMaterial()
     this.pointInstance = new THREE.Points(this.geometry, this.material)
   }
 

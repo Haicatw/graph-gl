@@ -5,6 +5,7 @@ import GLRenderer from './renderer/graph-gl-renderer'
 import GLScene from './scene/graph-gl-scene'
 import GLCamera from './camera/graph-gl-camera'
 import GLControl from './control/graph-gl-control'
+import GLEventHandeler from './events/graph-gl-events'
 // import * as THREE from 'three'
 
 export default class GraphGL {
@@ -24,11 +25,12 @@ export default class GraphGL {
     runtimeSettings.resetSettings(this.settings)
     // Initialize renderer
     this.renderer = new GLRenderer(this.settings)
-    // Initialize Scene
-    this.scene = new GLScene()
     // Initialize camera
     this.camera = new GLCamera(this.settings)
+    this.eventHandler = new GLEventHandeler(this.renderer.renderer, this.camera.camera)
     this.control = new GLControl(this.camera.camera, this.renderer.rendererDOM)
+    // Initialize Scene
+    this.scene = new GLScene(this.eventHandler, this.camera, this.renderer.rendererDOM)
     this.control.update()
     this.control.control.target.set(0, 0, 0)
     this.control.control.addEventListener('change', this.render.bind(this))
@@ -52,6 +54,14 @@ export default class GraphGL {
     this.fitToGraph()
     this.control.update()
     this.refresh()
+  }
+
+  bindListener (eventName, callback) {
+    this.eventHandler.bindListener(eventName, callback, 'Nodes')
+  }
+
+  unbindListener (eventName) {
+    this.eventHandler.unbindListener(eventName)
   }
 
   clear () {
@@ -99,6 +109,7 @@ export default class GraphGL {
   // }
   render () {
     // this.control.update()
+    this.scene.sceneUpdate()
     this.renderer.render(this.scene.scene, this.camera.camera)
   }
 }

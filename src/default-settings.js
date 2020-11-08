@@ -39,3 +39,10 @@ export function defaultEdgeAttrs () {
     curve: false
   }
 }
+
+export function defaultLegendAttrs () {
+  return {
+    label: { label: '' },
+    instance: { type: '', x: 0, y: 0, size: 30, positions: { source: {}, target: {} }, width: 10, color: '#000000', opacity: 1, borderWidth: 0, borderColor: '#000000' }
+  }
+}

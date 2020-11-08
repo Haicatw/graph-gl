@@ -47,8 +47,8 @@ function createTextCanvas (text, parameters = {}) {
   return canvas
 }
 
-export function getTextTexture (text, color) {
-  const texture = new THREE.Texture(createTextCanvas(text, { color }))
+export function getTextTexture (text, color, parameters = {}) {
+  const texture = new THREE.Texture(createTextCanvas(text, { color, ...parameters }))
   // console.log(texture)
   return texture
 }

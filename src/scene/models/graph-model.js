@@ -20,6 +20,10 @@ export default class GraphModel {
     return this.model.edges
   }
 
+  get nodeMapper () {
+    return this.model.nodeMap
+  }
+
   clear () {
     this.model = {}
   }
@@ -86,12 +90,12 @@ export default class GraphModel {
       // console.log('Edge', edge)
       if (!edge.curve) {
         edge.positions = {
-          source: { x: this.model.nodeMap[edge.source].x, y: this.model.nodeMap[edge.source].y, z: -0.1 },
-          target: { x: this.model.nodeMap[edge.target].x, y: this.model.nodeMap[edge.target].y, z: -0.1 }
+          source: { x: this.model.nodeMap[edge.source].x, y: this.model.nodeMap[edge.source].y, z: 0 },
+          target: { x: this.model.nodeMap[edge.target].x, y: this.model.nodeMap[edge.target].y, z: 0 }
         }
       } else {
         for (const point of edge.positions) {
-          point.z = -0.1
+          point.z = 0
         }
       }
       this.model.edgeMap[edge.id] = edge
