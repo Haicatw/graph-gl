@@ -15,7 +15,9 @@ export default class GLScene {
     this.threeScene = new THREE.Scene()
     this.graph = new GraphModel()
     this.polygons = new PolygonModels()
-    this.legend = new GLLegend(this.cameraProxy.camera, this.renderDom)
+    // this.legend = new GLLegend(this.cameraProxy.camera, this.renderDom)
+    this.legend = new GLLegend()
+    this.legend.createLinearScaleLegend('circle')
     this.sceneObjects = {
       nodes: {},
       edges: {}
@@ -66,7 +68,7 @@ export default class GLScene {
     this.polygons.clear()
     this.eventhandlerProxy.clearLayer('Nodes')
     this.hasData = false
-    this.legend.clear()
+    // this.legend.clear()
   }
 
   readGraph (graphObject) {
@@ -74,7 +76,7 @@ export default class GLScene {
       throw new Error('Please clear current graph before read new graph.')
     }
     this.graph.read(graphObject)
-    this.legend.createLayout(graphObject.legend)
+    // this.legend.createLayout(graphObject.legend)
     this.addGraphToScene()
     this.eventhandlerProxy.addObjectMapper(this.graph.nodeMapper)
     this.hasData = true
@@ -110,7 +112,7 @@ export default class GLScene {
       this.threeScene.add(edge.internalObject.instance)
       // console.log(edge)
     }.bind(this))
-    this.threeScene.add(this.legend.legend)
+    // this.threeScene.add(this.legend.legend)
   }
 
   updateGraph () {
@@ -140,16 +142,16 @@ export default class GLScene {
       node.internalObject.labelInstance.instance.scale.set(ratio * scale, scale, 1)
     })
 
-    if (this.legend.hasData) {
-      const legendPos = this.legend.getWorldPositionTopLeft()
-      console.log(legendPos)
-      // this.legend.updateLabels(scale)
-      // this.legend.legendContainer.position.set(legendPos.x, legendPos.y, 0)
-      // this.legend.legendContainer.scale.set(scale, scale, scale)
-      this.legend.legend.position.set(legendPos.x, legendPos.y, 0)
-      this.legend.legend.scale.set(scale, scale, 1)
-    }
-    console.log(this.legend.legend)
+    // if (this.legend.hasData) {
+    //   const legendPos = this.legend.getWorldPositionTopLeft()
+    //   console.log(legendPos)
+    // this.legend.updateLabels(scale)
+    // this.legend.legendContainer.position.set(legendPos.x, legendPos.y, 0)
+    // this.legend.legendContainer.scale.set(scale, scale, scale)
+    //   this.legend.legend.position.set(legendPos.x, legendPos.y, 0)
+    //   this.legend.legend.scale.set(scale, scale, 1)
+    // }
+    // console.log(this.legend.legend)
   }
 }
 

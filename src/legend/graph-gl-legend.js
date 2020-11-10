@@ -1,121 +1,69 @@
-import _ from 'lodash'
-import * as THREE from 'three'
-import LegendText from '../scene/factory/legend-text-factory'
-import Node from '../scene/factory/node-factory'
-import Edge from '../scene/factory/edge-factory'
-import { defaultLegendAttrs } from '../default-settings'
-// import { getTextTexture } from '../utilities/graph-gl-utilities'
+/* eslint-disable no-use-before-define */
+
+import * as d3 from 'd3v4'
+// import $ from 'cash-dom'
+// import { legendColor, legendSize, legendSymbol, legendHelpers } from 'd3-svg-legend'
+import * as d3Legend from 'd3-svg-legend'
+import runtimeSettings from '../runtimeSettings/runtime-settings'
 
 export default class GLLegend {
-  constructor (camera, domElement) {
-    this.camera = camera
-    this.domElement = domElement
-    this.legendContainer = new THREE.Group()
-    this.internalContainer = []
-    this.imgDim = 3
-    this.edgePadding = 2
-    this.hasData = false
+  constructor () {
+    const dim = document.querySelector(runtimeSettings.settings.selector).children[0].getBoundingClientRect()
+    this.svg = d3.select(runtimeSettings.settings.selector).append('svg').attr('width', 1000)
+      .attr('height', 200).style('top', dim.top).style('left', dim.left).style('position', 'absolute').style('z-index', 10)
+    console.log(runtimeSettings)
+    this.scale = window.devicePixelRatio
   }
 
-  get legend () { return this.legendContainer }
-
-  // node legend: max min size, max min border, color category, color continuous
-  // edge legend: max min width, color category, color continuous
-
-  createLayout (legendData) {
-    // const tempStorage = []
-    // const tempStorageNode = []
-    let count = 0
-    _.each(legendData, function (legend) {
-      legend = this.processRawLegend(legend)
-      // console.log(legend.type)
-      if (legend.instance.type === 'node') {
-        // const legendLabel
-        console.log('node: ', legend)
-        legend.label.x = this.imgDim
-        legend.label.y = -(count * this.imgDim / 2 + (this.imgDim / 2))
-        // tempStorage.push(new LegendText(legend.label))
-        legend.instance.x = this.imgDim / 2
-        legend.instance.y = -(count * this.imgDim / 2 + (this.imgDim / 2))
-        // tempStorageNode.push(new Node(legend.node))
-        const internalLabel = new LegendText(legend.label)
-        const internalInstance = new Node(legend.instance)
-        this.legendContainer.add(internalInstance.instance)
-        this.legendContainer.add(internalLabel.instance)
-        this.internalContainer.push({ label: internalLabel, instance: internalInstance })
-      } else {
-        legend.label.x = this.imgDim
-        legend.label.y = -(count * this.imgDim / 2 + (this.imgDim / 2))
-        // tempStorage.push(new LegendText(legend.label))
-        legend.instance.positions.source.x = this.edgePadding
-        legend.instance.positions.target.x = this.imgDim - this.edgePadding
-        legend.instance.positions.source.y = -(count * this.imgDim / 2 + (this.imgDim / 2))
-        legend.instance.positions.target.y = -(count * this.imgDim / 2 + (this.imgDim / 2))
-        // tempStorageNode.push(new Node(legend.node))
-        const internalLabel = new LegendText(legend.label)
-        const internalInstance = new Edge(legend.instance)
-        this.legendContainer.add(internalInstance.instance)
-        this.legendContainer.add(internalLabel.instance)
-        this.internalContainer.push({ label: internalLabel, instance: internalInstance })
-      }
-      count += 1
-    }.bind(this))
-    this.hasData = true
-    const newPos = this.getWorldPositionTopLeft()
-    this.legendContainer.position.set(newPos.x, newPos.y, 0)
+  createLegend () {
+    this.createLinearScaleLegend('circle')
   }
 
-  // convertToWorldSpace (x, y, cam) {
-  //   const screenPos = new THREE.Vector3(x, y, -1)
-  //   const pos = new THREE.Vector3()
-  //   screenPos.unproject(cam)
-  //   // screenPos.z = 0
-  //   // console.log(screenPos)
+  // type: circle/line
+  createLinearScaleLegend (type) {
+    console.log('createLinearScaleLegend')
+    if (type === 'line') {
+      const lineSize = d3.scaleLinear().domain([0, 10]).range([2, 10])
 
-  //   screenPos.sub(cam.position).normalize()
+      // const svg = d3.select('#graph-gl-legend')
 
-  //   const distance = -cam.position.z / screenPos.z
+      this.svg.append('g')
+        .attr('class', 'legendSizeLine')
+        .attr('transform', 'translate(0, 20)')
 
-  //   pos.copy(cam.position).add(screenPos.multiplyScalar(distance))
-  //   return pos
-  // }
+      const legendSizeLine = d3Legend.legendSize()
+        .scale(lineSize)
+        .shape('line')
+        .orient('horizontal')
+      // otherwise labels would have displayed:
+      // 0, 2.5, 5, 10
+        .labels([])
+        .labelWrap(30)
+        .shapeWidth(40)
+        .labelAlign('start')
+        .shapePadding(10)
 
-  getWorldPositionTopLeft () {
-    const x = 0// -this.domElement.width / 2 + 10
-    const y = 0.5// this.domElement.height / 2 - 10
-    const screenPos = new THREE.Vector3(x, y, 1)
-    console.log(screenPos)
-    const pos = new THREE.Vector3()
-    screenPos.unproject(this.camera)
-    // screenPos.z = 0
-    // console.log(screenPos)
+      this.svg.select('.legendSizeLine')
+        .call(legendSizeLine)
+    } else {
+      const linearSize = d3.scaleLinear().domain([0, 10]).range([10, 30])
 
-    screenPos.sub(this.camera.position).normalize()
+      // const svg = d3.select('#graph-gl-legend')
 
-    const distance = -this.camera.position.z / screenPos.z
+      this.svg.append('g')
+        .attr('class', 'legendSize')
+        .attr('transform', 'translate(20, 40)')
 
-    pos.copy(this.camera.position).add(screenPos.multiplyScalar(distance))
-    return pos
-  }
+      const legendSize = d3Legend.legendSize()
+        .scale(linearSize)
+        .shape('circle')
+        .shapePadding(15)
+        .labelOffset(20)
+        .orient('horizontal')
 
-  processRawLegend (rawLegend) {
-    const legend = defaultLegendAttrs()
-    legend.label = { label: rawLegend.label }
-    for (const property in rawLegend.instance) {
-      legend.instance[property] = rawLegend.instance[property]
+      this.svg.select('.legendSize')
+        .call(legendSize)
     }
-    return legend
-  }
-
-  updateLabels (scale) {
-    _.each(this.internalContainer, function (legend) {
-      console.log(legend)
-      legend.label.instance.scale.set(scale * legend.label.ratio, scale, 1)
-    })
-  }
-
-  clear () {
-    this.legendContainer = new THREE.Group()
-    this.hasData = false
   }
 }
+/* eslint-enable no-use-before-define */
