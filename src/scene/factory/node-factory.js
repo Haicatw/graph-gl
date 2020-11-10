@@ -23,6 +23,7 @@ export default class Node {
     this.geometry.setAttribute('pointSize', new THREE.BufferAttribute(new Float32Array([size / 2 + borderWidth]), 1))
     this.geometry.setAttribute('idcolor', new THREE.BufferAttribute(new Float32Array(new THREE.Color('#f05454').toArray()), 3))
     this.material = createNodeMaterial(node)
+    this.material.transparent = true
     // this.material = createPickerMaterial()
     this.pointInstance = new THREE.Points(this.geometry, this.material)
   }

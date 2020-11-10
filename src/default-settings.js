@@ -1,7 +1,7 @@
 export function defaultSettings () {
   return {
     fov: 40,
-    near: 10,
+    near: 50,
     far: 7000,
     height: 900,
     width: 1600,
@@ -24,7 +24,7 @@ export function defaultNodeAttrs () {
     size: 20,
     color: '#3182bd',
     opacity: 1,
-    borderColor: '#bdbdbd',
+    borderColor: '#525252',
     borderWidth: 1
   }
 }
