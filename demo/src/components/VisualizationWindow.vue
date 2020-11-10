@@ -22,7 +22,7 @@ export default {
           label: 'testing label',
         },
       ],
-      edges: [{ id: 0, source: 2, target: 1, color: '#2ec1ac', width: 1 }],
+      edges: [{ id: 0, source: 2, target: 1, color: '#2ec1ac', width: 5 }],
       legend: [
         {
           label: 'label 1 min mapped to node size',

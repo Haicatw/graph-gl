@@ -22,10 +22,10 @@ export function defaultNodeAttrs () {
     label: '',
     labelColor: 'black',
     size: 20,
-    color: '#3e978b',
+    color: '#3182bd',
     opacity: 1,
-    borderColor: '#d2e603',
-    borderWidth: 0
+    borderColor: '#bdbdbd',
+    borderWidth: 1
   }
 }
 
