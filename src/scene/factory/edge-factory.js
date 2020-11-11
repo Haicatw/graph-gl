@@ -22,10 +22,12 @@ export default class Edge {
       // points = THREE.CatmullRomCurve3(rawPoints, false)
     }
     this.geometry = new MeshLine()
-    this.geometry.setPoints(points)
+    this.geometry.setGeometry(points)
     const resolution = new THREE.Vector2(runtimeSettings.settings.width, runtimeSettings.settings.height)
-    this.material = new MeshLineMaterial({ useMap: false, color: new THREE.Color('rgb(255,0,0)'), opacity: 1, resolution: resolution, sizeAttenuation: false, lineWidth: 10 })
+    this.material = new MeshLineMaterial({ useMap: false, color: new THREE.Color(0xed6a5a), opacity: 1, resolution: resolution, sizeAttenuation: false, lineWidth: 10 })
+    this.material.depthTest = false
     this.lineInstance = new THREE.Mesh(this.geometry, this.material)
+    this.lineInstance.renderOrder = 0
   }
 
   get instance () { return this.lineInstance }
