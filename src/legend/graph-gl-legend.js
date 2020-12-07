@@ -10,7 +10,7 @@ export default class GLLegend {
   constructor () {
     const dim = document.querySelector(runtimeSettings.settings.selector).children[0].getBoundingClientRect()
     this.svg = d3.select(runtimeSettings.settings.selector).append('svg').attr('width', 1000)
-      .attr('height', 200).style('top', dim.top).style('left', dim.left).style('position', 'absolute').style('z-index', 10)
+      .attr('height', 200).style('top', dim.top).style('left', dim.left).style('position', 'absolute').style('z-index', -10)
     console.log(runtimeSettings)
     this.scale = window.devicePixelRatio
   }

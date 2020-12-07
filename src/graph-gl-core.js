@@ -31,6 +31,7 @@ export default class GraphGL {
     this.control = new GLControl(this.camera.camera, this.renderer.rendererDOM)
     // Initialize Scene
     this.scene = new GLScene(this.eventHandler, this.camera, this.renderer.rendererDOM)
+    this.eventHandler.addScene(this.scene.scene)
     this.control.update()
     this.control.control.target.set(0, 0, 0)
     this.control.control.addEventListener('change', this.render.bind(this))

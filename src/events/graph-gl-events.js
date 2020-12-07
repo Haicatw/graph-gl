@@ -3,9 +3,15 @@ import GPUPickHelper from './graph-gl-picker'
 
 export default class GLEventHandeler {
   constructor (renderer, camera) {
+    this.renderer = renderer
     this.picker = new GPUPickHelper(renderer)
     this.camera = camera
+    // this.scene = scene
     this.eventNameMap = {}
+  }
+
+  addScene (scene) {
+    this.scene = scene
   }
 
   addObjectMapper (objectMapper) {
@@ -24,15 +30,19 @@ export default class GLEventHandeler {
     const picker = this.picker
     const camera = this.camera
     const mapper = this.mapper
-    console.log('Build event')
+    // console.log('Build event')
+    const tempRenderer = this.renderer
+    const tempCamera = this.camera
+    const tempScene = this.scene
     const eventHandler = function (event) {
-      console.log('Event called')
+      // console.log('Event called')
       const id = picker.pick(layerName, camera, picker.getCursorPosition(event))
       if (id === 0) {
         return
       }
       event.pickedObject = mapper[id]
       console.log(id)
+      tempRenderer.render(tempScene, tempCamera)
       callback(event)
     }
 
