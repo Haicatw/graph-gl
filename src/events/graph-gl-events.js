@@ -7,7 +7,7 @@ export default class GLEventHandeler {
     this.picker = new GPUPickHelper(renderer)
     this.camera = camera
     // this.scene = scene
-    this.eventNameMap = {}
+    this.eventNameMap = []
   }
 
   addScene (scene) {
@@ -51,10 +51,18 @@ export default class GLEventHandeler {
 
   bindListener (eventName, callback, layerName) {
     const eventHandler = this.buildEvent(callback, layerName)
+    this.eventNameMap.push(eventName)
     $(this.picker.renderer.domElement).on(eventName, eventHandler)
   }
 
   unbindListener (eventName) {
     $(this.picker.renderer.domElement).off(eventName)
+  }
+
+  clear () {
+    this.eventNameMap.forEach(element => {
+      this.unbindListener(element)
+    })
+    this.picker.clear()
   }
 }

@@ -99,6 +99,12 @@ export default class GPUPickHelper {
 
     return id
   }
+
+  clear () {
+    this.pickingLayers.forEach(element => {
+      this.clearLayer(element)
+    })
+  }
 }
 
 // Reference: https://stackoverflow.com/questions/30359830/how-do-i-clear-three-js-scene/48722282

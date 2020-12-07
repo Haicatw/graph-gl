@@ -95,4 +95,10 @@ export default class GraphGL {
     this.scene.sceneUpdate()
     this.renderer.render(this.scene.scene, this.camera.camera)
   }
+
+  kill () {
+    this.scene.clear()
+    this.camera.clear()
+    this.eventHandler.clear()
+  }
 }
