@@ -56,9 +56,9 @@ export default class GLScene {
   }
 
   clear () {
-    if (!this.hasData) {
-      throw new Error('No data to clear')
-    }
+    // if (!this.hasData) {
+    //   throw new Error('No data to clear')
+    // }
     clearScene(this.threeScene)
     this.sceneObjects = {
       nodes: {},
