@@ -59,6 +59,10 @@ export default class GLEventHandeler {
     $(this.picker.renderer.domElement).off(eventName)
   }
 
+  clearLayer (layerName) {
+    this.picker.clearLayer(layerName)
+  }
+
   clear () {
     this.eventNameMap.forEach(element => {
       this.unbindListener(element)
