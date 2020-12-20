@@ -96,6 +96,11 @@ export default class GraphGL {
     this.renderer.render(this.scene.scene, this.camera.camera)
   }
 
+  takeSnapshot () {
+    const rendererCanvas = this.renderer.rendererDOM
+    return rendererCanvas.toDataURL()
+  }
+
   kill () {
     this.scene.clear()
     this.camera.clear()
