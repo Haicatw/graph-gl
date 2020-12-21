@@ -50,9 +50,9 @@ export default class GPUPickHelper {
     const color = new THREE.Color()
     color.setHex(sceneObject.internalObject.instance.id)
 
-    console.log(color)
+    // console.log(color)
     sceneObject.internalObject.geometry.setAttribute('idcolor', new THREE.BufferAttribute(new Float32Array(color.toArray()), 3))
-    console.log(sceneObject.internalObject.geometry)
+    // console.log(sceneObject.internalObject.geometry)
     const pickingObject = new THREE.Points(sceneObject.internalObject.geometry, createPickerMaterial(color))
 
     this.pickingLayers[layerName].layer.add(pickingObject)
@@ -80,7 +80,7 @@ export default class GPUPickHelper {
   }
 
   pick (layerName, camera, position) {
-    console.log(position)
+    // console.log(position)
     if (!this.pickingLayers[layerName]) {
       throw new Error(`${layerName} does not exist`)
     }
@@ -94,8 +94,8 @@ export default class GPUPickHelper {
     this.renderer.getContext().readPixels(position.x, this.renderer.getContext().drawingBufferHeight - position.y, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, this.pixelBuffer)
 
     const id = (this.pixelBuffer[0] << 16) | (this.pixelBuffer[1] << 8) | this.pixelBuffer[2]
-    console.log(this.pixelBuffer)
-    console.log(id)
+    // console.log(this.pixelBuffer)
+    // console.log(id)
 
     return id
   }
