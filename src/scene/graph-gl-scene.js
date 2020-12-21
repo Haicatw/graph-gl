@@ -47,6 +47,10 @@ export default class GLScene {
     this.threeScene.add(ma)
   }
 
+  graph () {
+    return this.graph
+  }
+
   graphNodes () {
     return this.graph.nodes
   }
