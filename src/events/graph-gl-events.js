@@ -39,12 +39,13 @@ export default class GLEventHandeler {
     const eventHandler = function (event) {
       // console.log('Event called')
       const id = picker.pick(layerName, camera, picker.getCursorPosition(event))
+      tempRenderer.render(tempScene, tempCamera)
+      console.log(id, mapper, mapper[id])
       if (id === 0) {
         return
       }
       event.pickedObject = mapper[id]
       // console.log(id)
-      tempRenderer.render(tempScene, tempCamera)
       callback(event)
     }
 

@@ -21,7 +21,7 @@ export function defaultNodeAttrs () {
     y: 0,
     label: '',
     labelColor: 'black',
-    size: 20,
+    size: 80,
     color: '#3182bd',
     opacity: 1,
     borderColor: '#525252',
