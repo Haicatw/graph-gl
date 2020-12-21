@@ -52,6 +52,9 @@ export default class GLEventHandeler {
   }
 
   bindListener (eventName, callback) {
+    if (!this.eventLists[eventName]) {
+      throw new Error(`${eventName} event not supported.`)
+    }
     const internalEventname = this.eventLists[eventName][0]
     const layerName = this.eventLists[eventName][1]
     const eventHandler = this.buildEvent(callback, layerName)
@@ -60,7 +63,8 @@ export default class GLEventHandeler {
   }
 
   unbindListener (eventName) {
-    $(this.picker.renderer.domElement).off(eventName)
+    const internalEventname = this.eventLists[eventName][0]
+    $(this.picker.renderer.domElement).off(internalEventname)
   }
 
   clearLayer (layerName) {

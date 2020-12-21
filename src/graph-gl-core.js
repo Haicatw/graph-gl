@@ -53,7 +53,7 @@ export default class GraphGL {
   }
 
   bindListener (eventName, callback) {
-    this.eventHandler.bindListener(eventName, callback, 'Nodes')
+    this.eventHandler.bindListener(eventName, callback)
   }
 
   unbindListener (eventName) {
