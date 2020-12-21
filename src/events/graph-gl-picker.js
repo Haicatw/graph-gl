@@ -30,7 +30,7 @@ export default class GPUPickHelper {
       selectionObjects: {},
       layer: new THREE.Scene()
     }
-    this.pickingLayers[layerName].layer.background = new THREE.Color(0)
+    this.pickingLayers[layerName].layer.background = new THREE.Color(0xffffff)
   }
 
   checkLayerNameAvailability (layerName) {
@@ -48,7 +48,8 @@ export default class GPUPickHelper {
     }
 
     const color = new THREE.Color()
-    color.setHex(sceneObject.internalObject.instance.id)
+    // color.setHex(sceneObject.internalObject.instance.id)
+    color.setHex(sceneObject.id)
 
     // console.log(color)
     sceneObject.internalObject.geometry.setAttribute('idcolor', new THREE.BufferAttribute(new Float32Array(color.toArray()), 3))
