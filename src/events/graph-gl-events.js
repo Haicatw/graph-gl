@@ -68,6 +68,7 @@ export default class GLEventHandeler {
     $(this.picker.renderer.domElement).off(internalEventname)
   }
 
+  // update dataset, use department, cobook, sematic label, overview (check box to show network wise department/ size stats data of network)
   clearLayer (layerName) {
     this.picker.clearLayer(layerName)
   }

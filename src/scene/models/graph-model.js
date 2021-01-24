@@ -101,4 +101,17 @@ export default class GraphModel {
       this.model.edgeMap[edge.id] = edge
     }.bind(this))
   }
+
+  updateEdgePos (edge) {
+    if (!edge.curve) {
+      edge.positions = {
+        source: { x: this.model.nodeMap[edge.source].x, y: this.model.nodeMap[edge.source].y, z: 0 },
+        target: { x: this.model.nodeMap[edge.target].x, y: this.model.nodeMap[edge.target].y, z: 0 }
+      }
+    } else {
+      for (const point of edge.positions) {
+        point.z = 0
+      }
+    }
+  }
 }

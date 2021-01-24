@@ -129,6 +129,7 @@ export default class GLScene {
       if (!edge.positions) {
         throw new Error('Edge must provide points positions')
       }
+      this.graph.updateEdgePos(edge)
       edge.internalObject.update(edge)
       // TODO: edge label
       // console.log(edge)
