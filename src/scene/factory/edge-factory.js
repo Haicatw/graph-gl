@@ -32,7 +32,7 @@ export default class Edge {
 
   get instance () { return this.lineInstance }
 
-  update (edgeObject) {
+  update (edgeObject, mapper) {
     let isPositionUpdated = false
     if (this.preserved.curve) {
       if (this.preserved.positions.length() !== edgeObject.positions.length()) {
@@ -45,8 +45,8 @@ export default class Edge {
       })
     } else {
       isPositionUpdated = true
-      if (this.preserved.positions.source.x === edgeObject.positions.source.x && this.preserved.positions.source.y === edgeObject.positions.source.y && this.preserved.positions.source.z === edgeObject.positions.source.z) {
-        if (this.preserved.positions.target.x === edgeObject.positions.target.x && this.preserved.positions.target.y === edgeObject.positions.target.y && this.preserved.positions.target.z === edgeObject.positions.target.z) {
+      if (this.preserved.positions.source.x === mapper[edgeObject.source].x && this.preserved.positions.source.y === mapper[edgeObject.source].y) {
+        if (this.preserved.positions.target.x === mapper[edgeObject.target].x && this.preserved.positions.target.y === mapper[edgeObject.target].y) {
           isPositionUpdated = false
         }
       }
@@ -63,8 +63,8 @@ export default class Edge {
           points.push(point)
         }
       } else {
-        points.push(new THREE.Vector3(edgeObject.positions.source.x, edgeObject.positions.source.y, edgeObject.positions.source.z))
-        points.push(new THREE.Vector3(edgeObject.positions.target.x, edgeObject.positions.target.y, edgeObject.positions.target.z))
+        points.push(new THREE.Vector3(mapper[edgeObject.source].x, mapper[edgeObject.source].y, mapper[edgeObject.source].z))
+        points.push(new THREE.Vector3(mapper[edgeObject.target].x, mapper[edgeObject.target].y, mapper[edgeObject.target].z))
       }
       this.geometry.setPoints(points)
     }
@@ -78,6 +78,7 @@ export default class Edge {
     if (this.preserved.lineWidth !== edgeObject.lineWidth) {
       this.material.lineWidth = edgeObject.lineWidth
     }
+    delete this.preserved
     this.preserved = { ...edgeObject }
   }
 }

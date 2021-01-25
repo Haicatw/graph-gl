@@ -120,6 +120,7 @@ export default class GLScene {
   }
 
   updateGraph () {
+    const tempNodeMap = this.graph.nodeMapper
     _.each(this.graph.nodes, function (node) {
       // console.log(node)
       node.internalObject.update(node)
@@ -129,8 +130,8 @@ export default class GLScene {
       if (!edge.positions) {
         throw new Error('Edge must provide points positions')
       }
-      this.graph.updateEdgePos(edge)
-      edge.internalObject.update(edge)
+      // this.graph.updateEdgePos(edge)
+      edge.internalObject.update(edge, tempNodeMap)
       // TODO: edge label
       // console.log(edge)
     })
